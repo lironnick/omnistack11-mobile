@@ -31,13 +31,14 @@ export default function Incidents() {
         }
 
         setLoading(true);
-
         const response = await api.get('incidents', {
             params: { page }
         });
     
         //anexa dois vetos no react
         setIncidents([...incidents, ...response.data]);
+        // console.log('1: ',response.data);
+        // console.log('2: ', incidents);
         setTotal(response.headers['x-total-count']);
         setPage(page + 1)
         setLoading(false);
@@ -64,7 +65,7 @@ export default function Incidents() {
                 data={incidents}
                 style={styles.incidentList}
                 keyExtractor={ incident => String(incident.id)}
-                // showsVerticalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
                 onEndReached={loadIncidents}
                 onEndReachedThreshold={0.2}
                 renderItem={({ item: incident }) => (
